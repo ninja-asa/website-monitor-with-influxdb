@@ -1,4 +1,7 @@
 # Website Availability Monitor
+[![Website Monitor - Publish Docker Image](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/publish-website-monitor-docker-image.yml/badge.svg?event=registry_package)](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/publish-website-monitor-docker-image.yml)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
+
 
 This Python script monitors the availability of one or more websites by periodically checking their health endpoints. It writes the availability status to an InfluxDB database for further analysis and visualization.
 

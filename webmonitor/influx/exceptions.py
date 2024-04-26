@@ -1,0 +1,2 @@
+class UnknownInfluxDBClientError(Exception):
+    pass

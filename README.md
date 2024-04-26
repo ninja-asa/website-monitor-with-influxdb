@@ -65,7 +65,7 @@ The measurement name is website_status.
 - response_code: The HTTP response code received when trying to access the website.
 - response_time: The time taken to receive the HTTP response from the website.
 - connection_time: The time taken to establish a connection to the website.
-# Time
+## Time
 - The timestamp (time) for each data point is the current time when the data is written to InfluxDB. The precision is set to seconds.
 
 

@@ -1,5 +1,5 @@
 # Specifying the base image
-FROM python:3.10-buster
+FROM python:3.11-buster
 
 # Install system dependencies and pip
 RUN apt-get update -y && apt-get install --no-install-recommends -y \

@@ -25,6 +25,8 @@ def test_check_connection_get_with_response(status_code, expected):
     requests.Timeout,
     requests.ConnectionError,
 ])
+# create patch in which MonitorWebsite.timeout is set to 0.5
+@patch('webmonitor.monitor.monitor.MonitorWebsite.timeout', new=0.1)
 def test_check_connection_get_with_exception(exception):
     with requests_mock.Mocker() as m:
         m.get('http://example.com', exc=exception)

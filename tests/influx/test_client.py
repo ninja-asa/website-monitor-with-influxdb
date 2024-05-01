@@ -32,6 +32,7 @@ def test_write_website_availability_to_influxdb(mock_datetime, mock_influxdb_cli
     current_time = mock_datetime.now.return_value
     expected_point = Point("website_status") \
         .tag("website", website) \
+        .tag("source", "unknown") \
         .field("success", int(status.success)) \
         .field("response_code", status.response_code) \
         .field("response_time", status.response_time) \

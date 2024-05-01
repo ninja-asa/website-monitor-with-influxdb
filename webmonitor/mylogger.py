@@ -17,8 +17,8 @@ def configure_logging(filename, level=logging.INFO):
     console_handler = logging.StreamHandler()
     console_handler.setLevel(level)
 
-    # Define the log format
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(module)s - %(message)s')
+    # Define the log format with timestamp, log level, module name, function name, line number and log message
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(module)s - %(funcName)s - %(lineno)d - %(message)s')
     file_handler.setFormatter(formatter)
     console_handler.setFormatter(formatter)
 

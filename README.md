@@ -69,6 +69,11 @@ The measurement name is website_status.
 ### Time
 - The timestamp (time) for each data point is the current time when the data is written to InfluxDB. The precision is set to seconds.
 
+## Influx UI Dashboard
+
+Under `assets\` you can find a JSON file that can be imported into InfluxDB to create a dashboard that visualizes the availability of the websites being monitored.
+
+![InfluxDB Dashboard](assets/influxdb-dashboard.png)
 
 ## Contributing
 

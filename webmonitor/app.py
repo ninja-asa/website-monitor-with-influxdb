@@ -6,8 +6,8 @@ from webmonitor.monitor.monitor import MonitorWebsite, WebsiteStatus
 from webmonitor.influx.client import write_website_availability_to_influxdb
 from webmonitor.influx.exceptions import UnknownInfluxDBClientError
 
-from config import WEBSITES, CHECK_INTERVAL
-from mylogger import configure_logging, logging
+from webmonitor.config import WEBSITES, CHECK_INTERVAL
+from webmonitor.mylogger import configure_logging, logging
 
 configure_logging(filename=f"{__name__}.log", level=logging.INFO)
 

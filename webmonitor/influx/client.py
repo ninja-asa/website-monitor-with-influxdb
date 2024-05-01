@@ -2,7 +2,7 @@ from influxdb_client import InfluxDBClient, Point, WriteApi
 from influxdb_client.client.write_api import SYNCHRONOUS
 from datetime import datetime
 
-from webmonitor.influx.config import INFLUX_URL, TOKEN, ORG, BUCKET
+from webmonitor.influx.config import INFLUX_URL, TOKEN, ORG, BUCKET, MY_CLIENT_NAME
 from webmonitor.influx.exceptions import UnknownInfluxDBClientError
 from webmonitor.monitor.monitor import WebsiteStatus
 
@@ -22,6 +22,7 @@ def write_website_availability_to_influxdb(website: str, status: WebsiteStatus) 
     try: 
         point = Point("website_status") \
             .tag("website", website) \
+            .tag("source", MY_CLIENT_NAME) \
             .field("success", int(status.success)) \
             .field("response_code", status.response_code) \
             .field("response_time", status.response_time) \

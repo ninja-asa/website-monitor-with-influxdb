@@ -1,5 +1,7 @@
 # Website Availability Monitor
 [![Website Monitor - Publish Docker Image](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/publish-website-monitor-docker-image.yml/badge.svg)](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/publish-website-monitor-docker-image.yml)
+[![Run Tests](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/unit-tests.yml)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ninja-asa/37ff209715cdc5c97bc8d4ae402b027d/raw/6eb82adf5b92eeb1c23affd4b33e3e998e668599/website-monitor-with-influxdb-coverage.json)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 
 
@@ -65,9 +67,14 @@ The measurement name is website_status.
 - response_code: The HTTP response code received when trying to access the website.
 - response_time: The time taken to receive the HTTP response from the website.
 - connection_time: The time taken to establish a connection to the website.
-# Time
+### Time
 - The timestamp (time) for each data point is the current time when the data is written to InfluxDB. The precision is set to seconds.
 
+## Influx UI Dashboard
+
+Under `assets\` you can find a JSON file that can be imported into InfluxDB to create a dashboard that visualizes the availability of the websites being monitored.
+
+![InfluxDB Dashboard](assets/influxdb-dashboard.png)
 
 ## Contributing
 

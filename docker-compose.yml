@@ -1,0 +1,10 @@
+  version: '3.8'
+
+  services:
+    website-monitor:
+      container_name: website-monitor
+      build:
+        context: .
+        dockerfile: Dockerfile
+      env_file:
+        - monitor.env

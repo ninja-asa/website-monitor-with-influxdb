@@ -24,7 +24,8 @@
 				"ms-toolsai.jupyter-renderers",
 				"njpwerner.autodocstring",
 				"janisdd.vscode-edit-csv",
-				"ms-python.python"
+				"ms-python.python",
+				"patrick91.python-dependencies-vscode"
 			]
 		}
 	}

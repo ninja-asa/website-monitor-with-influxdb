@@ -1,3 +1,4 @@
+import datetime
 from threading import Timer
 import logging 
 
@@ -6,8 +7,8 @@ from webmonitor.monitor.monitor import MonitorWebsite, WebsiteStatus
 from webmonitor.influx.client import write_website_availability_to_influxdb
 from webmonitor.influx.exceptions import UnknownInfluxDBClientError
 
-from config import WEBSITES, CHECK_INTERVAL
-from mylogger import configure_logging, logging
+from webmonitor.config import WEBSITES, CHECK_INTERVAL
+from webmonitor.mylogger import configure_logging, logging
 
 configure_logging(filename=f"{__name__}.log", level=logging.INFO)
 
@@ -32,7 +33,7 @@ def monitor_websites(monitors: list[MonitorWebsite]) -> None:
         logging.info("-" * 50)
     return
 
-def run_monitor() -> None:
+def run_monitor(end_date: datetime = None) -> None:
     """Run the website monitor"""
     monitors = [MonitorWebsite(url) for url in WEBSITES]
     # Print configuration of the monitor
@@ -42,7 +43,8 @@ def run_monitor() -> None:
     logging.info("-" * 50)
 
     monitor_websites(monitors)
-    timer = Timer(CHECK_INTERVAL, run_monitor)
+    timer = Timer(CHECK_INTERVAL, run_monitor, args=[end_date])
     timer.start()
 
-run_monitor()
+if __name__ == "__main__":
+    run_monitor()

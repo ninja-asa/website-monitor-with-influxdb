@@ -1,3 +1,4 @@
+from venv import logger
 import requests
 from typing import Literal
 import time
@@ -46,23 +47,50 @@ class MonitorWebsite():
         Returns:
             bool: True if can connect, False otherwise. If between 200 and 300, return True.
         """
-        success = False
+        status_code = None; response_time = None; connection_time = None
+        latest_exception = None
         for _ in range(self.retries):
             try:
                 start_time = time.time()
                 response = requests.get(url=url, timeout=self.timeout)
                 end_time = time.time()
+
                 response_time = end_time - start_time
                 connection_time = response.elapsed.total_seconds()
                 status_code = response.status_code
+                
                 if 200 <= status_code < 300:  # 200 OK
-                    success = True
-                    response_code = status_code
-                    break
-            except requests.RequestException as error:
+                    return WebsiteStatus(True, 
+                                         status_code, 
+                                         response_time, 
+                                         connection_time
+                                         )
+                response.raise_for_status()
+            except requests.exceptions.HTTPError as errh:
+                latest_exception = errh
+                logger.warning(f"HTTP error: {errh}")
                 continue
-        return WebsiteStatus(success, response_code, response_time, connection_time)
-    
+            except requests.exceptions.ConnectionError as errc:
+                latest_exception = errc
+                logger.warning(f"Error connecting: {errc}")
+                continue
+            except requests.exceptions.Timeout as errt:
+                latest_exception = errt
+                logger.warning(f"Timeout error: {errt}")
+                continue
+            except requests.exceptions.RequestException as err:
+                latest_exception = err
+                logger.warning(f"Request exception: {err}")
+                continue
+            finally:
+                logger.warning(f"Retrying {url}")
+                time.sleep(self.timeout)
+
+        if status_code is not None:
+            return WebsiteStatus(False, status_code, response_time, connection_time)
+        logger.warning(f"Retried {self.retries} times, but could not connect to {url}")
+        logger.error(f"Latest exception: {latest_exception}")
+        return WebsiteStatus(False, 0, 0, 0)     
 
     def check_internet_connection(self) -> Literal[True]:
         """Check if can connect to the control website

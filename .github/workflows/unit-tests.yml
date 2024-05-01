@@ -1,0 +1,66 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches:
+    - main    
+  schedule:
+  - cron: "0 2 * * 1-5"  
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Unit Tests and Coverage
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5.1.0
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+    - name: Run tests
+      run: pytest
+
+    - name: Check Coverage
+      run: | 
+        coverage run -m pytest
+        coverage xml
+        echo "COVERAGE_PERCENT=$(coverage report --format=total | awk '{print $NF}' | tr -d '%')" >> $GITHUB_ENV
+
+    - name: Python Coverage
+      uses: orgoro/coverage@v3.1
+      # only if pull request or push
+      if: github.event_name == 'pull_request'
+      with:
+        # local path to a coverage xml file like the output of pytest --cov
+        coverageFile: "coverage.xml" 
+        # github token
+        token: ${{ secrets.GITHUB_TOKEN }}
+        # the coverage threshold for average over all files [0,1]
+        thresholdAll: 0.7
+      
+    - name: Dynamic Badges
+      uses: Schneegans/dynamic-badges-action@v1.7.0
+      with:
+        # Your secret with the gist scope
+        auth: ${{ secrets.GIST_SECRET }}
+        # The ID of the gist to use
+        gistID: 37ff209715cdc5c97bc8d4ae402b027d
+        # The *.json or *.svg filename of the badge data
+        filename: website-monitor-with-influxdb-coverage.json
+        # The left text of the badge
+        label: Coverage
+        # The right text of the badge
+        message: ${{ env.COVERAGE_PERCENT }} %
+        valColorRange: ${{ env.COVERAGE_PERCENT }}
+        maxColorRange: 100
+        minColorRange: 0
+        forceUpdate: true
+                      

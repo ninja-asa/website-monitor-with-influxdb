@@ -12,6 +12,7 @@ from webmonitor.monitor.exceptions import NoInternetConnectionError, UnknownMoni
     (400, False),
     (500, False),
 ])
+@patch('webmonitor.monitor.monitor.MonitorWebsite.timeout', new=0.1)
 def test_check_connection_get_with_response(status_code, expected):
     with requests_mock.Mocker() as m:
         m.get('http://example.com', status_code=status_code)
@@ -36,6 +37,7 @@ def test_check_connection_get_with_exception(exception):
         assert status.response_code == 0
 
 @patch('webmonitor.monitor.monitor.CONTROL_WEBSITE', new='http://example.com')
+@patch('webmonitor.monitor.monitor.MonitorWebsite.timeout', new=0.1)
 def test_check_internet_connection() -> None:
     with requests_mock.Mocker() as m:
         m.get('http://example.com', status_code=200)
@@ -43,6 +45,7 @@ def test_check_internet_connection() -> None:
         assert monitor.check_internet_connection()
 
 @patch('webmonitor.monitor.monitor.CONTROL_WEBSITE', new='http://example.com')
+@patch('webmonitor.monitor.monitor.MonitorWebsite.timeout', new=0.1)
 def test_check_internet_connection_no_connection():
     with requests_mock.Mocker() as m:
         m.get('http://example.com', status_code=400)

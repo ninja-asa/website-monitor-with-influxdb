@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Build and Push Dev Docker Image
 
 on:
   pull_request:

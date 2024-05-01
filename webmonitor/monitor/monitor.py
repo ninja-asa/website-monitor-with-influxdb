@@ -82,6 +82,10 @@ class MonitorWebsite():
                 latest_exception = err
                 logger.warning(f"Request exception: {err}")
                 continue
+            finally:
+                logger.warning(f"Retrying {url}")
+                time.sleep(self.timeout)
+
         if status_code is not None:
             return WebsiteStatus(False, status_code, response_time, connection_time)
         logger.warning(f"Retried {self.retries} times, but could not connect to {url}")

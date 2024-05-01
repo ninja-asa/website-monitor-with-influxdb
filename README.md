@@ -1,5 +1,6 @@
 # Website Availability Monitor
 [![Website Monitor - Publish Docker Image](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/publish-website-monitor-docker-image.yml/badge.svg)](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/publish-website-monitor-docker-image.yml)
+[![Run Tests](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/ninja-asa/website-monitor-with-influxdb/actions/workflows/unit-tests.yml)
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ninja-asa/37ff209715cdc5c97bc8d4ae402b027d/raw/6eb82adf5b92eeb1c23affd4b33e3e998e668599/website-monitor-with-influxdb-coverage.json)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 

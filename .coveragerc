@@ -10,6 +10,7 @@ omit =
     */conftest.py
     */_version.py
     *main.py
+    */mylogger.py
 
 [report]
 exclude_lines = 

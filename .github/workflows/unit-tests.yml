@@ -9,7 +9,12 @@ on:
   schedule:
   - cron: "0 2 * * 1-5"  
   workflow_dispatch:
-
+  
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+  
 jobs:
   test:
     name: Unit Tests and Coverage

@@ -9,5 +9,5 @@ six==1.16.0
 typing_extensions==4.11.0
 urllib3==2.2.1
 pytest==8.2.0
-coverage==7.5.1
+coverage==7.5.2
 requests_mock==1.12.1
